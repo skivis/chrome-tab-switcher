@@ -11,17 +11,17 @@ const wait = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-const loop = async pages => {
+const loop = async (pages, sleep) => {
   tabsCount = pages.length - 1;
   let index = 0;
   while (true) {
     await pages[index].bringToFront();
-    await wait(10000);
+    await wait(sleep);
     index = index === tabsCount ? 0 : (index += 1);
   }
 };
 
-const run = async () => {
+const run = async (file, sleep) => {
   const response = await request({
     uri: 'http://localhost:9222/json/version',
     json: true
@@ -32,7 +32,7 @@ const run = async () => {
     defaultViewport: null
   });
 
-  await asyncForEach(require('./urls.json'), async url => {
+  await asyncForEach(require(file), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
   });
@@ -40,12 +40,17 @@ const run = async () => {
   const pages = await browser.pages();
   pages.shift();
 
-  await loop(pages);
+  await loop(pages, sleep);
 };
 
 (async () => {
+  const {
+    file = './urls.json',
+    sleep = 10000
+  } = require('minimist')(process.argv.slice(2))
+
   try {
-    await run();
+    await run(file, sleep);
   } catch (error) {
     console.log(error.message);
     process.exit();
