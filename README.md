@@ -19,7 +19,15 @@ start chrome.exe --remote-debugging-port=9222
 
 ### Run the script
 
-Now create a `urls.text` file and write all urls (one line each) you want to switch between and run the script.
+Now create a `urls.json` file and a list of all the urls you want to switch between and run the script.
+
+```json
+[
+    "https://google.com",
+    "https://github.com",
+    "https://example.com"
+]
+```
 
 ```sh
 yarn start
