@@ -19,7 +19,7 @@ start chrome.exe --remote-debugging-port=9222
 
 ### Run the script
 
-Now create a urls.text file write all urls (one line each) and run the script.
+Now create a `urls.text` file and write all urls (one line each) you want to switch between and run the script.
 
 ```sh
 yarn start
