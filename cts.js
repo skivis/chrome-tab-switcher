@@ -16,7 +16,7 @@ const loop = async (pages, sleep) => {
   let index = 0;
   while (true) {
     await pages[index].bringToFront();
-    await wait(sleep);
+    await wait(sleep * 1000);
     index = index === tabsCount ? 0 : (index += 1);
   }
 };
@@ -46,7 +46,7 @@ const run = async (file, sleep) => {
 (async () => {
   const {
     file = './urls.json',
-    sleep = 10000
+    sleep = 10
   } = require('minimist')(process.argv.slice(2))
 
   try {
