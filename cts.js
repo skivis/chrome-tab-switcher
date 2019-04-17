@@ -10,7 +10,7 @@ const asyncForEach = async (array, callback) => {
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const loop = async (pages, sleep) => {
-  tabsCount = pages.length - 1;
+  const tabsCount = pages.length - 1;
   let index = 0;
   while (true) {
     await pages[index].bringToFront();
