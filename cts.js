@@ -7,9 +7,7 @@ const asyncForEach = async (array, callback) => {
   }
 };
 
-const wait = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const loop = async (pages, sleep) => {
   tabsCount = pages.length - 1;
