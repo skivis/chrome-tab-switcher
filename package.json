@@ -1,0 +1,15 @@
+{
+  "name": "chrome-tab-switcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "UNLICENCED",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^1.14.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
