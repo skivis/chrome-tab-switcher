@@ -1,11 +1,9 @@
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
+const fs = require('fs')
+const { promisify } = require('util')
 
-const urls = [
-  'https://google.com',
-  'https://github.com',
-  'https://example.com'
-];
+const readFile = promisify(fs.readFile)
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -22,7 +20,7 @@ const loop = async pages => {
   let index = 0;
   while (true) {
     await pages[index].bringToFront();
-    await wait(1000);
+    await wait(10000);
     index = index === tabsCount ? 0 : (index += 1);
   }
 };
@@ -37,7 +35,9 @@ const run = async () => {
     defaultViewport: null
   });
 
-  await asyncForEach(urls, async url => {
+  const urls = await readFile('./urls.txt', 'utf-8');
+
+  await asyncForEach(urls.split('\n'), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
   });
