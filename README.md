@@ -30,5 +30,9 @@ Now create a `urls.json` file and a list of all the urls you want to switch betw
 ```
 
 ```sh
-yarn start
+node cts.js
 ```
+
+You can also configure the switching with following arguments:
+* `--file` is the relative path to your urls json file. Defaults to `./urls.json`
+* `--sleep` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
