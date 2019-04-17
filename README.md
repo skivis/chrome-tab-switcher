@@ -19,7 +19,7 @@ start chrome.exe --remote-debugging-port=9222
 
 ### Run the script
 
-Also define all the urls you want to switch between at the top of index.js.
+Now create a urls.text file write all urls (one line each) and run the script.
 
 ```sh
 yarn start
