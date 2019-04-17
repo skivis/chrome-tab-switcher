@@ -1,9 +1,5 @@
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
-const fs = require('fs')
-const { promisify } = require('util')
-
-const readFile = promisify(fs.readFile)
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -30,14 +26,13 @@ const run = async () => {
     uri: 'http://localhost:9222/json/version',
     json: true
   });
+
   const browser = await puppeteer.connect({
     browserWSEndpoint: response.webSocketDebuggerUrl,
     defaultViewport: null
   });
 
-  const urls = await readFile('./urls.txt', 'utf-8');
-
-  await asyncForEach(urls.split('\n'), async url => {
+  await asyncForEach(require('./urls.json'), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
   });
@@ -48,4 +43,11 @@ const run = async () => {
   await loop(pages);
 };
 
-run();
+(async () => {
+  try {
+    await run();
+  } catch (error) {
+    console.log(error.message);
+    process.exit();
+  }
+})();

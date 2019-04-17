@@ -1,4 +1,4 @@
-# Automatic Chrome Tab switching (i.e. dashboards?)
+# Chrome Tab Switcher (i.e. dashboards?)
 
 ## Prerequisites
 Google Chrome & Node
