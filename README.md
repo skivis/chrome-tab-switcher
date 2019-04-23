@@ -36,4 +36,4 @@ node cts.js
 
 You can also configure the switching with following arguments:
 * `--file` is the relative path to your urls json file. Defaults to `./urls.json`
-* `--sleep` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
+* `--delay` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
