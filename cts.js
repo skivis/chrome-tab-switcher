@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
+const { setIntervalAsync } = require('set-interval-async/dynamic');
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -13,14 +14,14 @@ async function loop(pages, delay) {
 
   delay = delay * 1000;
 
-  setInterval(async () => {
+  setIntervalAsync(async () => {
     await pages[index].bringToFront();
     if (index === tabsCount) {
       index = 0;
     } else {
       index++
     }
-  }, delay)
+  }, delay);
 }
 
 const run = async (file, delay) => {
@@ -49,7 +50,7 @@ const run = async (file, delay) => {
   const {
     file = './urls.json',
     delay = 10
-  } = require('minimist')(process.argv.slice(2))
+  } = require('minimist')(process.argv.slice(2));
 
   try {
     await run(file, delay);

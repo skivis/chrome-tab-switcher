@@ -9,6 +9,7 @@
   "dependencies": {
     "puppeteer": "^1.14.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "set-interval-async": "1.0.23"
   }
 }
