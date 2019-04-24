@@ -36,5 +36,11 @@ node ./cts.js
 ```
 
 You can also configure the switching with following arguments:
-* `--file` is the path to your configuration file. Defaults to `./urls.json`
-* `--delay` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
+* `-f` is the path to your configuration file. Defaults to `./urls.json`
+* `-d` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
+
+Example with flags:
+
+```sh
+node ./cts.js -f ./config.json -d 120
+```
