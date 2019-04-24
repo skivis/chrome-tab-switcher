@@ -8,11 +8,13 @@ const asyncForEach = async (array, callback) => {
   }
 };
 
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function loop(pages, delay) {
   const tabsCount = pages.length - 1;
   let index = 0;
-
-  delay = delay * 1000;
 
   setIntervalAsync(async () => {
     await pages[index].bringToFront();
@@ -24,7 +26,9 @@ async function loop(pages, delay) {
   }, delay);
 }
 
-const run = async (file, delay) => {
+const run = async (options = {}) => {
+  const { file, delay } = options;
+
   const response = await request({
     uri: 'http://localhost:9222/json/version',
     json: true
@@ -38,6 +42,7 @@ const run = async (file, delay) => {
   await asyncForEach(require(file), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
+    await wait(delay);
   });
 
   const pages = await browser.pages();
@@ -48,12 +53,12 @@ const run = async (file, delay) => {
 
 (async () => {
   const {
-    file = './urls.json',
-    delay = 10
+    f = './urls.json',
+    d = 10,
   } = require('minimist')(process.argv.slice(2));
 
   try {
-    await run(file, delay);
+    await run({ file: f, delay: (d * 1000) });
   } catch (error) {
     console.log(error.message);
     process.exit();
