@@ -1,4 +1,4 @@
-# Chrome Tab Switcher (i.e. dashboards?)
+# Chrome Tab Switcher
 
 ## Prerequisites
 Google Chrome & Node
@@ -17,12 +17,11 @@ Google Chrome & Node
 start chrome.exe --remote-debugging-port=9222
 ```
 
-### Run the script
+### Running the script
 
-Now create a JSON file with a list of all the urls you want to switch between and run the script.
+Now create a `<whatever>.json` file, listing the urls you want to switch between. Example:
 
 ```json
-// example
 [
     "https://google.com",
     "https://github.com",
@@ -30,10 +29,12 @@ Now create a JSON file with a list of all the urls you want to switch between an
 ]
 ```
 
+Lastly just run the script. By default the script assumes the configuration file is in the same directory and has the name `urls.json` but this can me configured, see below:
+
 ```sh
-node cts.js
+node ./cts.js
 ```
 
 You can also configure the switching with following arguments:
-* `--file` is the relative path to your urls json file. Defaults to `./urls.json`
+* `--file` is the path to your configuration file. Defaults to `./urls.json`
 * `--delay` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
