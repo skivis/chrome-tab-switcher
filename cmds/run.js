@@ -13,7 +13,7 @@ async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
-};
+}
 
 async function loop(pages, delay) {
   const tabsCount = pages.length - 1;
@@ -31,7 +31,7 @@ async function loop(pages, delay) {
 
 async function run(options = {}) {
   const file = options.file || './urls.json';
-  const delay = (options.delay || 10) * 1000
+  const delay = (options.delay || 10) * 1000;
 
   const response = await request({
     uri: 'http://localhost:9222/json/version',
