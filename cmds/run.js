@@ -5,15 +5,15 @@ const request = require('request-promise');
 const { setIntervalAsync } = require('set-interval-async/dynamic');
 const readFile = util.promisify(fs.readFile);
 
-const asyncForEach = async (array, callback) => {
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function asyncForEach(array, callback) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }
 };
-
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 async function loop(pages, delay) {
   const tabsCount = pages.length - 1;
