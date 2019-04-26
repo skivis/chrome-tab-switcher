@@ -11,8 +11,8 @@ const menus = {
   run: `
   cts run <options>
 
-  --file, -f        the path to json file (list of urls)
-  --delay, -d       delay in seconds between tab switches`
+  --file,  -f       Path to a JSON-file, containing a list of urls
+  --delay, -d       Delay in seconds between tab switches`
 };
 
 module.exports = args => {
