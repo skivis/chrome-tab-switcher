@@ -30,8 +30,8 @@ async function loop(pages, delay) {
 }
 
 async function run(options = {}) {
-  const delay = (options.delay ? options.delay : 10) * 1000;
-  const file = options.file ? options.file : './urls.json';
+  const file = options.file || './urls.json';
+  const delay = (options.delay || 10) * 1000
 
   const response = await request({
     uri: 'http://localhost:9222/json/version',
