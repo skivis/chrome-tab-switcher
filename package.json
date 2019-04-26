@@ -1,8 +1,10 @@
 {
   "name": "chrome-tab-switcher",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "UNLICENCED",
+  "license": "MIT",
+  "bin": {
+    "cts": "bin/cts"
+  },
   "scripts": {
     "start": "node index.js"
   },

@@ -1,7 +1,9 @@
-const fs = require('fs').promises;
+const util = require('util');
+const fs = require('fs');
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
 const { setIntervalAsync } = require('set-interval-async/dynamic');
+const readFile = util.promisify(fs.readFile);
 
 const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -22,13 +24,14 @@ async function loop(pages, delay) {
     if (index === tabsCount) {
       index = 0;
     } else {
-      index++
+      index++;
     }
   }, delay);
 }
 
 async function run(options = {}) {
-  const { file, delay } = options;
+  const delay = (options.delay ? options.delay : 10) * 1000;
+  const file = options.file ? options.file : './urls.json';
 
   const response = await request({
     uri: 'http://localhost:9222/json/version',
@@ -40,7 +43,7 @@ async function run(options = {}) {
     defaultViewport: null
   });
 
-  const data = await fs.readFile(file, 'utf8');
+  const data = await readFile(file, 'utf8');
 
   await asyncForEach(JSON.parse(data), async url => {
     const page = await browser.newPage();
@@ -52,18 +55,15 @@ async function run(options = {}) {
   pages.shift();
 
   await loop(pages, delay);
-};
+}
 
-(async () => {
-  const {
-    f = './urls.json',
-    d = 10,
-  } = require('minimist')(process.argv.slice(2));
-
+module.exports = async args => {
   try {
-    await run({ file: f, delay: (d * 1000) });
+    await run({
+      file: args.file || args.f,
+      delay: args.delay || args.d
+    });
   } catch (error) {
-    console.log(error.message);
-    process.exit();
+    console.error(error);
   }
-})();
+};

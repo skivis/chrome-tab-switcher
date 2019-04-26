@@ -32,15 +32,7 @@ Now create a `<whatever>.json` file, listing the urls you want to switch between
 Lastly just run the script. By default the script assumes the configuration file is in the same directory and has the name `urls.json` but this can me configured, see below:
 
 ```sh
-node ./cts.js
+./bin/cts.js
 ```
 
-You can also configure the switching with following arguments:
-* `-f` is the path to your configuration file. Defaults to `./urls.json`
-* `-d` specifies the time in seconds to wait between tab switches. Defaults to `10` seconds.
-
-Example with flags:
-
-```sh
-node ./cts.js -f ./config.json -d 120
-```
+Run `./bin/cts.js --help` for more information on how to run.
