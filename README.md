@@ -14,7 +14,7 @@ Google Chrome & Node
 
 #### Windows
 ```sh
-start chrome.exe --remote-debugging-port=9222
+start chrome.exe --remote-debugging-port=9222 --user-data-dir=remote-profile
 ```
 
 ### Running the script
