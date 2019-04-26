@@ -1,3 +1,4 @@
+const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
 const { setIntervalAsync } = require('set-interval-async/dynamic');
@@ -26,7 +27,7 @@ async function loop(pages, delay) {
   }, delay);
 }
 
-const run = async (options = {}) => {
+async function run(options = {}) {
   const { file, delay } = options;
 
   const response = await request({
@@ -39,7 +40,9 @@ const run = async (options = {}) => {
     defaultViewport: null
   });
 
-  await asyncForEach(require(file), async url => {
+  const data = await fs.readFile(file, 'utf8');
+
+  await asyncForEach(JSON.parse(data), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
     await wait(delay);
