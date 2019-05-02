@@ -9,6 +9,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "prompt-confirm": "^2.0.4",
     "puppeteer": "^1.14.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",

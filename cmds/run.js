@@ -3,6 +3,7 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 const request = require('request-promise');
 const { setIntervalAsync } = require('set-interval-async/dynamic');
+const Confirm = require('prompt-confirm');
 const readFile = util.promisify(fs.readFile);
 
 function wait(ms) {
@@ -20,7 +21,11 @@ async function loop(pages, delay) {
   let index = 0;
 
   setIntervalAsync(async () => {
-    await pages[index].bringToFront();
+    try {
+      await pages[index].bringToFront();
+    } catch (error) {
+      process.exit();
+    }
     if (index === tabsCount) {
       index = 0;
     } else {
@@ -48,8 +53,14 @@ async function run(options = {}) {
   await asyncForEach(JSON.parse(data), async url => {
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
-    await wait(delay);
   });
+
+  const confirm = new Confirm('Continue?')
+  const resume = await confirm.run();
+
+  if (!resume) {
+    throw new Error('Aborting!')
+  }
 
   const pages = await browser.pages();
   pages.shift();
@@ -65,5 +76,6 @@ module.exports = async args => {
     });
   } catch (error) {
     console.error(error);
+    process.exit();
   }
 };
